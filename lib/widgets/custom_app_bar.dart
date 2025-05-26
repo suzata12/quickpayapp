@@ -3,6 +3,7 @@ import '../constants/colors.dart';
 
 PreferredSizeWidget customAppBar(String title) {
   return AppBar(
+    automaticallyImplyLeading: true, // disables back button
     title: Text(
       title,
       style: const TextStyle(

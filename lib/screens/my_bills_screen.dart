@@ -3,6 +3,8 @@ import '../constants/colors.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/bill_card.dart';
 import '../utils/mock_data.dart';
+import '../screens/add_new_bill_screen.dart';
+import '../widgets/bottom_navbar.dart';
 
 class MyBillsScreen extends StatefulWidget {
   const MyBillsScreen({super.key});
@@ -14,8 +16,10 @@ class MyBillsScreen extends StatefulWidget {
 class _MyBillsScreenState extends State<MyBillsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
   final List<String> _filters = ['Days', 'Amount'];
-  String? _selectedFilter = 'Days';
+  String _selectedFilter = 'Days';
+  bool _ascending = true;
 
   @override
   void initState() {
@@ -24,24 +28,44 @@ class _MyBillsScreenState extends State<MyBillsScreen>
   }
 
   List<Map<String, dynamic>> _getBills(String tab) {
-    return mockBills.where((bill) {
-      switch (tab) {
-        case 'Upcoming':
-          return bill['status'] == 'due';
-        case 'Recurring':
-          return bill['frequency'] != null && bill['frequency'] != '';
-        case 'Paid':
-          return bill['status'] == 'paid';
-        default:
-          return true;
-      }
-    }).toList();
+    List<Map<String, dynamic>> filteredBills =
+        mockBills.where((bill) {
+          switch (tab) {
+            case 'Upcoming':
+              return bill['status'] == 'due';
+            case 'Recurring':
+              return bill['frequency'] != null &&
+                  bill['frequency'].toString().trim().isNotEmpty;
+            case 'Paid':
+              return bill['status'] == 'paid';
+            default:
+              return true;
+          }
+        }).toList();
+
+    // Sort logic
+    if (_selectedFilter == 'Days') {
+      filteredBills.sort((a, b) {
+        int aDue = a['dueIn'] ?? 0;
+        int bDue = b['dueIn'] ?? 0;
+        return _ascending ? aDue.compareTo(bDue) : bDue.compareTo(aDue);
+      });
+    } else if (_selectedFilter == 'Amount') {
+      filteredBills.sort((a, b) {
+        double aAmt = a['amount']?.toDouble() ?? 0.0;
+        double bAmt = b['amount']?.toDouble() ?? 0.0;
+        return _ascending ? aAmt.compareTo(bAmt) : bAmt.compareTo(aAmt);
+      });
+    }
+
+    return filteredBills;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('My Bills'),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 3),
       body: Column(
         children: [
           Container(
@@ -49,7 +73,7 @@ class _MyBillsScreenState extends State<MyBillsScreen>
             child: TabBar(
               controller: _tabController,
               labelColor: AppColors.primaryBlue,
-              unselectedLabelColor: Colors.grey,
+              unselectedLabelColor: Colors.white,
               indicatorColor: AppColors.primaryBlue,
               tabs: const [
                 Tab(text: 'Upcoming'),
@@ -78,6 +102,21 @@ class _MyBillsScreenState extends State<MyBillsScreen>
                     });
                   },
                 ),
+                const SizedBox(width: 20),
+                const Text('Order:', style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 10),
+                DropdownButton<bool>(
+                  value: _ascending,
+                  items: const [
+                    DropdownMenuItem(value: true, child: Text('Ascending')),
+                    DropdownMenuItem(value: false, child: Text('Descending')),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _ascending = value!;
+                    });
+                  },
+                ),
               ],
             ),
           ),
@@ -103,10 +142,10 @@ class _MyBillsScreenState extends State<MyBillsScreen>
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.pushNamed(
+          Navigator.push(
             context,
-            '/add-bill',
-          ); // Make sure the route exists
+            MaterialPageRoute(builder: (context) => const AddNewBillScreen()),
+          );
         },
         backgroundColor: AppColors.primaryBlue,
         label: const Text(

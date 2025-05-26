@@ -4,7 +4,7 @@ import '../models/payment.dart';
 class PaymentCard extends StatelessWidget {
   final Payment payment;
 
-  const PaymentCard({Key? key, required this.payment}) : super(key: key);
+  const PaymentCard({super.key, required this.payment});
 
   @override
   Widget build(BuildContext context) {

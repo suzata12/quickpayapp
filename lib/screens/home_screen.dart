@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '\$56.00 - April 06',
+                      '\$${"${lastPayment.toStringAsFixed(2)} $lastPaymentDate"}',
                       style: AppTextStyles.secondaryBalance,
                     ),
                     const SizedBox(height: 16),
@@ -232,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppColors.primaryBlue,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 child: const Text(
@@ -250,10 +250,9 @@ class _HomeScreenState extends State<HomeScreen> {
             // Payment History
             Text('Payment History', style: AppTextStyles.sectionTitle),
             const SizedBox(height: 8),
-            ...paymentHistory.map((item) {
+            ...dashPaymentHistory.map((item) {
               final String status = item['status'] ?? '';
               final bool isPaid = status.toLowerCase() == 'paid';
-              final double amount = item['amount'] as double;
 
               return ListTile(
                 title: Text(item['title'] ?? ''),

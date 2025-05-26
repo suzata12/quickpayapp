@@ -23,13 +23,11 @@ class QuickPayApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
-        '/add-bill':
-            (context) =>
-                const AddNewBillScreen(), // Register your Add New Bill page here
+        '/add_bill': (context) => const AddNewBillScreen(),
         '/my_bills': (context) => const MyBillsScreen(),
         '/pay_bill': (context) => const PayBillScreen(),
         '/payment_history': (context) => const PaymentHistoryScreen(),
-        '/wallet': (context) => const WalletScreen(),
+        '/wallet': (context) => const MyWalletScreen(),
         '/my_profile': (context) => const MyProfileScreen(),
       },
     );

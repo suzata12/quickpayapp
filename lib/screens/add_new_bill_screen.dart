@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants/colors.dart';
 import '../utils/mock_data.dart';
+import '../widgets/custom_app_bar.dart';
 
 class AddNewBillScreen extends StatefulWidget {
   const AddNewBillScreen({super.key});
@@ -98,21 +99,7 @@ class _AddNewBillScreenState extends State<AddNewBillScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Add New Bill',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            fontFamily: 'Roboto',
-            color: AppColors.primaryBlue,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: AppColors.primaryBlue30,
-        foregroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: customAppBar('Add New Bill'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(

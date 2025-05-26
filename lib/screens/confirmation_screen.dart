@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
+import '../widgets/custom_app_bar.dart';
 
 class ConfirmationScreen extends StatelessWidget {
   final String billName;
@@ -14,12 +15,7 @@ class ConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Payment Confirmation'),
-        backgroundColor: AppColors.primaryBlue,
-        centerTitle: true,
-        elevation: 2,
-      ),
+      appBar: customAppBar('Payment Confirmation'),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

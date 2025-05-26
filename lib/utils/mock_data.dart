@@ -1,8 +1,11 @@
 import '../models/quick_action.dart';
 import 'package:flutter/material.dart';
+import '../models/user.dart';
 
 String userName = "Surya";
 double walletBalance = 300.00;
+double lastPayment = 306.50;
+String lastPaymentDate = 'April-05';
 
 List<QuickAction> quickActions = [
   QuickAction(label: 'Utilities', icon: Icons.lightbulb),
@@ -16,7 +19,7 @@ List<Map<String, String>> upcomingBills = [
   {'title': 'Internet Bill', 'due': 'Due in 15 days'},
 ];
 
-List<Map<String, dynamic>> paymentHistory = [
+List<Map<String, dynamic>> dashPaymentHistory = [
   {'title': 'Water Bill', 'status': 'Paid', 'amount': 100.00},
   {'title': 'Electricity Bill', 'status': 'Due in 12 days', 'amount': 100.00},
   {'title': 'Internet Bill', 'status': 'Due in 18 days', 'amount': 25.50},
@@ -44,7 +47,7 @@ List<Map<String, dynamic>> mockBills = [
     'amount': 125.50,
     'status': 'due',
     'dueIn': 2,
-    'frequency': 'Monthly',
+    'frequency': '',
   },
   {
     'name': 'Electricity Bill',
@@ -65,13 +68,33 @@ List<Map<String, dynamic>> mockBills = [
     'amount': 19.99,
     'status': 'paid',
     'dueIn': 0,
-    'frequency': 'Monthly',
+    'frequency': 'yearly',
   },
   {
     'name': 'Spotify',
     'amount': 10.99,
     'status': 'paid',
     'dueIn': 0,
-    'frequency': 'Monthly',
+    'frequency': '',
   },
 ];
+
+final List<Map<String, dynamic>> paymentHistory = [
+  {'category': 'Electricity', 'date': 'May 10, 2025', 'amount': -75.50},
+  {'category': 'Internet', 'date': 'May 9, 2025', 'amount': -45.00},
+  {'category': 'Rent', 'date': 'May 1, 2025', 'amount': -1200.00},
+  {'category': 'TopUp', 'date': 'April 29, 2025', 'amount': 300.00},
+  {'category': 'Withdraw', 'date': 'April 28, 2025', 'amount': -150.00},
+  {'category': 'Electricity', 'date': 'April 15, 2025', 'amount': -80.75},
+  {'category': 'Internet', 'date': 'April 10, 2025', 'amount': -43.25},
+  {'category': 'TopUp', 'date': 'April 5, 2025', 'amount': 200.00},
+  {'category': 'Rent', 'date': 'April 1, 2025', 'amount': -1200.00},
+  {'category': 'Withdraw', 'date': 'March 30, 2025', 'amount': -100.00},
+];
+
+final mockUser = User(
+  name: 'Emma Watson',
+  email: 'emma@gmail.com',
+  phone: '+61 400 123 456',
+  profileImageUrl: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
+);

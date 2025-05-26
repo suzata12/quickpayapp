@@ -1,7 +1,13 @@
 class User {
-  final String id;
-  final String name;
-  final String email;
+  String name;
+  String email;
+  String phone;
+  String profileImageUrl;
 
-  User({required this.id, required this.name, required this.email});
+  User({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.profileImageUrl,
+  });
 }
