@@ -133,15 +133,15 @@ class _PayBillScreenState extends State<PayBillScreen> {
                 onPressed: _selectContact,
                 child: const Text('Add Contact to Split With'),
               ),
-              if (_splitContacts.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 12),
-                    const Text('Split With:'),
-                    ..._splitContacts.map((c) => Text('• $c')),
-                  ],
-                ),
+              // if (_splitContacts.isNotEmpty)
+              //   Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       const SizedBox(height: 12),
+              //       const Text('Split With:'),
+              //       ..._splitContacts.map((c) => Text('• $c')),
+              //     ],
+              //   ),
               const SizedBox(height: 16),
               CheckboxListTile(
                 value: _agreeChecked,
