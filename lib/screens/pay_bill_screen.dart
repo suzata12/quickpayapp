@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:quickpay_app/screens/paymet_confirmation_screen.dart';
 import '../constants/colors.dart';
 import '../widgets/custom_app_bar.dart';
 
@@ -30,7 +31,12 @@ class _PayBillScreenState extends State<PayBillScreen> {
     'Water',
   ];
 
-  List<String> _splitContacts = [];
+  final List<String> _splitContacts = [
+    '04523122627',
+    '3456787654323',
+    '23456787654',
+    '234567754567',
+  ];
 
   @override
   void dispose() {
@@ -43,7 +49,7 @@ class _PayBillScreenState extends State<PayBillScreen> {
 
   String _maskedCard(String input) {
     if (input.length < 3) return '***';
-    return '***${input.substring(input.length - 3)}';
+    return '${'*' * (input.length - 3)}${input.substring(input.length - 3)}';
   }
 
   bool _isFormValid() {
@@ -58,7 +64,10 @@ class _PayBillScreenState extends State<PayBillScreen> {
     final status = await Permission.contacts.request();
     if (status.isGranted) {
       final contacts = await ContactsService.getContacts(withThumbnails: false);
-      final phones = contacts.where((c) => c.phones!.isNotEmpty).toList();
+      final phones =
+          contacts
+              .where((c) => c.phones != null && c.phones!.isNotEmpty)
+              .toList();
 
       showModalBottomSheet(
         context: context,
@@ -198,6 +207,13 @@ class _PayBillScreenState extends State<PayBillScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Payment Successful!')),
                       );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => const PaymentConfirmationScreen(),
+                        ),
+                      );
                       // Optionally clear form or navigate away here
                     }
                   },
@@ -315,7 +331,7 @@ class PaymentOptionForm extends StatelessWidget {
             if (value == null || value.isEmpty) {
               return 'Please enter an amount';
             }
-            final isValid = RegExp(r'^\d+\.?\d{0,2}\$').hasMatch(value);
+            final isValid = RegExp(r'^\d+\.?\d{0,2}$').hasMatch(value);
             return isValid ? null : 'Enter valid number';
           },
         ),

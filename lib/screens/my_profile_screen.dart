@@ -131,7 +131,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   backgroundImage:
                       _profileImage != null
                           ? FileImage(_profileImage!)
-                          : const AssetImage('assets/profile_placeholder.png')
+                          : const AssetImage(
+                                '../assets/profile_placeholder.png',
+                              )
                               as ImageProvider,
                 ),
                 Positioned(

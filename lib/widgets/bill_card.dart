@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
+import '../screens/pay_bill_screen.dart';
 
 class BillCard extends StatelessWidget {
   final Map<String, dynamic> bill;
@@ -57,7 +58,12 @@ class BillCard extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    // TODO: Navigate to payment
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PayBillScreen(),
+                      ),
+                    );
                   },
                   child: const Text(
                     'Pay Now',

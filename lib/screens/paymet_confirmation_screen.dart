@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
+import '../widgets/custom_app_bar.dart';
 
 class PaymentConfirmationScreen extends StatelessWidget {
   const PaymentConfirmationScreen({super.key});
@@ -9,12 +10,8 @@ class PaymentConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Confirmation"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 1,
-      ),
+      appBar: customAppBar('Confirmation'),
+
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -88,7 +85,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
                     context,
-                    '/home',
+                    '/',
                     (route) => false,
                   );
                 },
